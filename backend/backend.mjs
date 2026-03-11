@@ -1,7 +1,7 @@
 import PocketBase from 'pocketbase';
 const pb = new PocketBase('http://127.0.0.1:8090');
 
-// Получить всех артистов
+
 export async function getArtists() {
   try {
     const data = await pb.collection('artists').getFullList({ sort: 'name' });
@@ -19,7 +19,7 @@ export async function getArtists() {
   }
 }
 
-// Получить одного артиста по ID
+
 export async function getArtistById(id) {
   try {
     const artist = await pb.collection('artists').getOne(id);

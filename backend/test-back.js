@@ -11,29 +11,31 @@ import {
 } from './backend.mjs';
 
 async function test() {
-    console.log('Все артисты по дате:');
+
+    console.log('Tous les artistes triés par date :');
     console.log(await getArtistsByDate());
 
-    console.log('Все артисты по алфавиту:');
+    console.log('Tous les artistes par ordre alphabétique :');
     console.log(await getArtistsAlphabetical());
 
-    console.log('Все сцены:');
+    console.log('Toutes les scènes :');
     console.log(await getScenes());
 
-    console.log('Артист по id (пример):');
-    const sampleArtistId = 'kgq9h32ditpx6xz'; // вставь сюда любой id из твоего списка
+    console.log("Artiste par ID (exemple) :");
+    const sampleArtistId = 'kgq9h32ditpx6xz';
     console.log(await getArtistById(sampleArtistId));
 
-    console.log('Сцена по id (пример):');
-    // Подставь id сцены, как будет готово
-    // const sampleSceneId = 'твоя_сцена_id';
-    // console.log(await getSceneById(sampleSceneId));
+    console.log("Scène par ID (exemple) :");
+    const sampleSceneId = 'SCENE_ID_EXEMPLE';
+    console.log(await getSceneById(sampleSceneId));
 
-    console.log('Артисты на сцене по id (пример):');
-    // await getArtistsBySceneId(sampleSceneId)
+    console.log("Artistes d'une scène par ID (exemple) :");
+    console.log(await getArtistsBySceneId(sampleSceneId));
 
-    console.log('Артисты на сцене по имени (пример):');
-    // await getArtistsBySceneName("Scène Nyama")
+    console.log("Artistes d'une scène par nom (exemple) :");
+    const sampleSceneName = 'Nom de la scène';
+    console.log(await getArtistsBySceneName(sampleSceneName));
+
 }
 
 test();
