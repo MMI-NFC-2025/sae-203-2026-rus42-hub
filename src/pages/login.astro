@@ -1,0 +1,146 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Connexion">
+
+  <div id="loginModal" class="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+    <div class="bg-[#E1DED6] rounded-xl w-[400px] p-6 relative">
+      <button id="closeLogin" class="absolute top-4 right-4 text-2xl">✕</button>
+      <h2 class="text-2xl font-bold mb-4 text-green-800">Connexion</h2>
+      
+      <form id="loginForm" class="flex flex-col gap-4">
+        <input type="email" id="email" placeholder="Email" class="p-2 border rounded text-green-800" required />
+        <input type="password" id="password" placeholder="Mot de passe" class="p-2 border rounded text-green-800" required />
+        <button type="submit" class="bg-[#56A963] text-[#E1DED6] p-2 rounded font-bold">Se connecter</button>
+      </form>
+
+      <p class="mt-4 text-sm text-green-800">
+        Pas de compte ? 
+        <button id="goToRegister" class="underline font-bold">Créer un compte</button>
+      </p>
+    </div>
+  </div>
+
+  <div id="registerModal" class="fixed inset-0 bg-black/50 flex justify-center items-center z-50 hidden">
+    <div class="bg-[#E1DED6] rounded-xl w-[400px] p-6 relative">
+      <button id="backToLogin" class="absolute top-4 left-4 text-2xl">←</button>
+      <h2 class="text-2xl font-bold mb-4 text-green-800">Créer un compte</h2>
+      
+      <form id="registerForm" class="flex flex-col gap-4">
+        <input type="text" id="name" placeholder="Nom" class="p-2 border rounded text-green-800" required />
+        <input type="email" id="regEmail" placeholder="Email" class="p-2 border rounded text-green-800" required />
+        <input type="password" id="regPassword" placeholder="Mot de passe" class="p-2 border rounded text-green-800" required />
+        <button type="submit" class="bg-[#56A963] text-[#E1DED6] p-2 rounded font-bold">Créer un compte</button>
+      </form>
+    </div>
+  </div>
+
+<script>
+// @ts-nocheck
+import PocketBase from "pocketbase";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
+
+const loginModal = document.getElementById("loginModal");
+const registerModal = document.getElementById("registerModal");
+
+
+document.getElementById("closeLogin")?.addEventListener("click", () => {
+  loginModal.classList.add("hidden");
+});
+
+document.getElementById("goToRegister")?.addEventListener("click", () => {
+  loginModal.classList.add("hidden");
+  registerModal.classList.remove("hidden");
+});
+
+document.getElementById("backToLogin")?.addEventListener("click", () => {
+  registerModal.classList.add("hidden");
+  loginModal.classList.remove("hidden");
+});
+
+document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!email || !password) {
+    alert("Veuillez remplir tous les champs !");
+    return;
+  }
+
+  try {
+    const user = await pb.collection("users").authWithPassword(email, password);
+
+    alert("Connexion réussie ! Bienvenue, " + user.record.name);
+
+    localStorage.setItem("user", JSON.stringify(user.record));
+    localStorage.setItem("pb_auth", pb.authStore.exportToCookie());
+
+    loginModal.classList.add("hidden");
+
+  } catch (err) {
+    console.error(err);
+    alert("Erreur : " + (err.message || "Email ou mot de passe incorrect"));
+  }
+});
+
+
+document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("regEmail");
+  const passwordInput = document.getElementById("regPassword");
+
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!name || !email || !password) {
+    alert("Veuillez remplir tous les champs !");
+    return;
+  }
+
+  try {
+    console.log("Envoi des données à PocketBase:", { name, email });
+
+    const newUser = await pb.collection("users").create({
+      username: email,
+      name,
+      email,
+      password,
+      passwordConfirm: password
+    });
+
+    console.log("Utilisateur créé:", newUser);
+
+    const authUser = await pb.collection("users").authWithPassword(email, password);
+
+    console.log("Utilisateur authentifié:", authUser);
+
+    localStorage.setItem("user", JSON.stringify(authUser.record));
+    localStorage.setItem("pb_auth", pb.authStore.exportToCookie());
+
+    alert("Compte créé et connecté ! Bienvenue, " + authUser.record.name);
+
+    nameInput.value = "";
+    emailInput.value = "";
+    passwordInput.value = "";
+
+    registerModal.classList.add("hidden");
+    loginModal.classList.add("hidden");
+
+  } catch (err) {
+    console.error("Erreur complète:", err);
+    alert("Erreur : " + (err.message || "Vérifiez vos informations"));
+  }
+});
+</script>
+
+</Layout>

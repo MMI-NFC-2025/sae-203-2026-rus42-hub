@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contact">
+
+<!-- HEADER -->
+<section class="bg-[#E1DED6] pt-20 pb-16 text-green-800">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-[48px] font-bold mb-4 tracking-wide"> CONTACT </h1>
+    <p class="max-w-[260px] text-[16px] leading-tight"> Une question ou une demande particulière ? Notre équipe est là pour vous répondre ! </p>
+  </div>
+</section>
+
+<!-- GREEN STRIP -->
+<div class="w-full h-[14px] bg-green-800 -mt-[14px]"></div>
+
+<!-- FORM + INFO -->
+<section class="bg-[#56A963] py-20">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20">
+
+    <!-- LEFT FORM -->
+    <div class="flex flex-col gap-6 text-[#E1DED6]">
+
+      <label class="font-semibold text-[18px]">Nom</label>
+      <input
+        type="text"
+        placeholder="Votre nom..."
+        class="p-3 rounded-lg bg-[#E1DED6] text-green-800 focus:outline-none"
+      />
+
+      <label class="font-semibold text-[18px]">Adresse mail</label>
+      <input
+        type="email"
+        placeholder="exemple@mail.com"
+        class="p-3 rounded-lg bg-[#E1DED6] text-green-800 focus:outline-none"
+      />
+
+      <label class="font-semibold text-[18px]">Message</label>
+      <textarea
+        placeholder="Votre message..."
+        class="p-3 rounded-lg bg-[#E1DED6] text-green-800 h-32 resize-none focus:outline-none"
+      ></textarea>
+
+      <button class="mt-6 px-10 py-3 bg-green-800 text-[#E1DED6] font-semibold rounded-full text-[18px] hover:scale-105 transition" > Envoyer</button>
+
+    </div>
+
+    <!-- RIGHT INFO -->
+    <div class="text-[#E1DED6] flex flex-col gap-16">
+
+      <!-- Infos pratiques -->
+      <div>
+        <h2 class="text-[36px] font-bold text-green-800 mb-6">Infos pratiques</h2>
+        <div class="flex justify-between text-[15px] mb-3"><span>Mail</span><span>contact@echosonore.fr</span></div>
+        <div class="flex justify-between text-[15px] mb-3"><span>Adresse</span><span>Site plein air de Autincourt (25400), France</span></div>
+        <div class="flex justify-between text-[15px]"><span>Téléphone</span><span>+33 6 89 48 74 55</span></div>
+      </div>
+
+      <!-- Réseaux sociaux -->
+      <div>
+        <h2 class="text-[36px] font-bold text-green-800 mb-6">Réseaux sociaux</h2>
+
+        <div class="flex gap-8"> <img src="/twitter.svg" class="w-[40px]" /> <img src="/instagram.svg" class="w-[40px]" /> <img src="/facebook.svg" class="w-[40px]" /></div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- BOTTOM STRIP -->
+<section class="bg-[#E1DED6] h-12"></section>
+
+</Layout>

@@ -1,0 +1,213 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PocketBase from "pocketbase";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
+
+const { id } = Astro.params;
+
+
+// SCENE
+
+let scene = null;
+
+try{
+scene = await pb.collection("scenes").getOne(id);
+}catch(e){
+console.error(e);
+}
+
+
+// REPRESENTATIONS (artist + date + scene)
+
+let representations = [];
+
+try{
+representations = await pb.collection("representations").getFullList({
+expand: "artist,scene",
+filter: `scene="${id}"`,
+sort: "date"
+});
+}catch(e){
+console.error(e);
+}
+
+
+// DATES
+
+const dates = [...new Set(
+
+representations
+.map(r => r.date)
+.filter(Boolean)
+.map(d => new Date(d).toISOString().split("T")[0])
+
+)].sort((a,b)=> new Date(a)-new Date(b));
+
+---
+
+<Layout>
+
+{scene && (
+
+<section class="">
+
+<div class="max-w-5xl mx-auto flex flex-col items-center gap-12">
+
+{scene.image && (
+
+<img
+src={`http://127.0.0.1:8090/api/files/${scene.collectionId}/${scene.id}/${scene.image}`}
+alt={scene.name}
+class="w-[420px] rounded-[25px] border-[13px] border-[#E1DED6]"
+/>
+
+)}
+
+<h1 class="text-[#E1DED6] text-5xl font-bold text-center">
+{scene.name}
+</h1>
+
+<p class="text-[#E1DED6] text-xl text-left">
+{scene.description}
+</p>
+
+</div>
+
+</section>
+
+)}
+
+
+
+<section class="">
+
+<h2 class="text-center text-[#E1DED6] text-4xl font-bold mb-12">
+LISTE DES ARTISTES
+</h2>
+
+
+{representations.length > 0 && (
+
+<>
+
+<div id="dateFilters" class="flex justify-center gap-4 mb-12 flex-wrap">
+
+{dates.map(date => (
+
+<button
+class="dateBtn px-6 py-2 rounded-[25px] bg-[#E1DED6] text-green-800 hover:scale-105 transition"
+data-date={date}
+>
+
+{new Date(date).toLocaleDateString("fr-FR",{
+day:"numeric",
+month:"long"
+})}
+
+</button>
+
+))}
+
+</div>
+
+
+
+<div class="flex justify-center">
+
+<div class="bg-[#56A963] rounded-[25px] px-10 py-12 w-full max-w-3xl">
+
+<div id="artistsList" class="flex flex-col gap-4 items-center">
+
+{representations.map(rep => (
+
+<p
+class="artistItem text-[#E1DED6] text-3xl font-semibold hidden"
+data-date={new Date(rep.date).toISOString().split("T")[0]}
+>
+
+{rep.expand.artist.name}
+
+</p>
+
+))}
+
+</div>
+
+</div>
+
+</div>
+
+</>
+
+)}
+
+</section>
+
+
+
+{scene && (
+
+<section class="mt-20 text-center text-[#E1DED6]">
+
+<p class="text-lg">
+
+ {scene.location}
+
+</p>
+
+<p class="text-lg mt-2">
+
+ Capacité : {scene.capacity} personnes
+
+</p>
+
+</section>
+
+)}
+
+
+
+<div class="flex justify-center mt-16">
+
+<a
+href="/artists"
+class="px-8 py-3 bg-[#E1DED6] text-green-800 rounded-[25px] font-semibold hover:scale-105 transition"
+>
+
+Voir tous les artistes
+
+</a>
+
+</div>
+
+
+</Layout>
+
+
+<script lang="ts">
+
+const buttons = document.querySelectorAll(".dateBtn");
+const artists = document.querySelectorAll(".artistItem");
+
+buttons.forEach(button => {
+
+button.addEventListener("click", () => {
+
+const selectedDate = button.dataset.date;
+
+artists.forEach(artist => {
+
+artist.classList.add("hidden");
+
+if(artist.dataset.date === selectedDate){
+artist.classList.remove("hidden");
+}
+
+});
+
+});
+
+});
+
+</script>

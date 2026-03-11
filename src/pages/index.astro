@@ -1,10 +1,176 @@
 ---
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-	<h1>Welcome to Astro!</h1>
+<Layout title="Accueil">
+
+  <!-- HERO SECTION -->
+  <section class="w-full bg-green-800 text-[#E1DED6] pt-10 pb-16">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col items-center text-center gap-6">
+      <img src="/images/hero-bg.png" alt="Echo Sonore Festival" class="w-full max-w-[420px] h-auto object-contain" />
+      <p class="text-[18px] md:text-[20px] font-semibold tracking-wide"> FESTIVAL DE MUSIQUE AFRO </p>
+
+<div class="bg-[#56A963] text-[#E1DED6] rounded-[30px] px-8 py-6 flex flex-col items-center justify-center text-center shadow-md w-full max-w-[360px] mx-auto md:max-w-[480px] md:px-10 md:py-8">
+
+  <span class="text-[26px] md:text-[32px] font-bold leading-none tracking-wide"> 28–29–30–31 </span>
+  <span class="text-[22px] md:text-[26px] font-bold leading-none -mt-1"> OCTOBRE 2026 </span>
+  <span class="text-[14px] md:text-[16px] text-green-800 font-semibold mt-2 tracking-wide"> SITE PLEIN AIR DE AUDINCOURT </span>
+
+</div>
+
+<div class="flex flex-col items-center text-center mt-4">
+  <p class="font-['Anton'] text-[32px] md:text-[36px] leading-none text-[#E1DED6]"> “Vibrez au rythme de la nature” </p>
+  <p class="font-sans text-[13px] md:text-[14px] leading-relaxed max-w-[600px] mt-3 text-[#E1DED6]"> Venez assister à quatre jours de détente au festival ECHO SONORE, le seul festival d’Audincourt regroupant des artistes issus de la culture AFRO ! </p>
+
+</div>
+      <a
+        href="/billetterie"
+        class="mt-4 inline-flex items-center justify-center bg-[#E1DED6] text-green-800 font-bold px-10 py-3 rounded-full text-[18px] shadow-md hover:shadow-xl hover:-translate-y-[2px] hover:scale-[1.02] transition-transform transition-shadow duration-200" > Accéder à la billetterie </a>
+    </div>
+
+    <div class="mt-10">
+      <img src="/images/festivalaccueil1img.avif" alt="Echo Sonore Festival" class="w-full h-auto object-cover"
+      />
+    </div>
+  </section>
+
+  <!-- SECTIONS: À propos / Programme / Artistes / Infos -->
+  <section class="py-16 md:py-24 bg-[#E1DED6] text-green-800">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col gap-16 md:gap-20">
+
+      <!-- À propos -->
+      <div class="flex flex-col md:grid md:grid-cols-2 md:items-center gap-8 md:gap-12">
+        <div class="flex flex-col gap-4">
+          <h3 class="text-[28px] md:text-[36px] font-bold">À propos de nous</h3>
+          <div class="h-[2px] w-full bg-green-800"></div>
+          <p class="text-[15px] md:text-[16px]"> Apprenez en plus sur nous et l’histoire de notre festival de musique afro. </p>
+          <a href="/about" class="mt-2 inline-flex items-center gap-3 font-semibold text-[15px] md:text-[16px] hover:gap-4 transition-all duration-150"
+          >
+            En savoir plus
+            <img src="/arrow-right.svg" class="w-5 h-5" alt="Voir plus" />
+          </a>
+        </div>
+        <div class="w-full">
+          <img src="/images/about-img.svg" alt="À propos" class="w-full h-auto object-contain" />
+        </div>
+      </div>
+
+      <!-- Programme -->
+      <div class="flex flex-col md:grid md:grid-cols-2 md:items-center gap-8 md:gap-12">
+        <div class="w-full md:order-1 order-2">
+          <img src="/images/programme-img.svg"  alt="Programme"  class="w-full h-auto object-contain" />
+        </div>
+        <div class="flex flex-col gap-4 md:order-2 order-1">
+          <h3 class="text-[28px] md:text-[36px] font-bold">Programme</h3>
+          <div class="h-[2px] w-full bg-green-800"></div>
+          <p class="text-[15px] md:text-[16px]"> Découvrez les activités qui seront disponibles lors de notre événement. </p>
+          <a href="/programme" class="mt-2 inline-flex items-center gap-3 font-semibold text-[15px] md:text-[16px] hover:gap-4 transition-all duration-150" > En savoir plus
+            <img src="/arrow-right.svg" class="w-5 h-5" alt="Voir plus" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Artistes -->
+      <div class="flex flex-col md:grid md:grid-cols-2 md:items-center gap-8 md:gap-12">
+        <div class="flex flex-col gap-4">
+          <h3 class="text-[28px] md:text-[36px] font-bold">Artistes</h3>
+          <div class="h-[2px] w-full bg-green-800"></div>
+          <p class="text-[15px] md:text-[16px]"> Rencontrez les artistes qui seront présents lors du festival. </p>
+          <a
+            href="/artistes"
+            class="mt-2 inline-flex items-center gap-3 font-semibold text-[15px] md:text-[16px] hover:gap-4 transition-all duration-150"> En savoir plus
+            <img src="/arrow-right.svg" class="w-5 h-5" alt="Voir plus" />
+          </a>
+        </div>
+        <div class="w-full">
+          <img src="/images/artists-img.svg" alt="Artistes" class="w-full h-auto object-contain" />
+        </div>
+      </div>
+
+      <!-- Infos pratiques -->
+      <div class="flex flex-col md:grid md:grid-cols-2 md:items-center gap-8 md:gap-12">
+        <div class="w-full md:order-1 order-2">
+          <img src="/images/festivalaccueil2img.avif" alt="Infos pratiques" class="w-full h-auto object-contain"
+          />
+        </div>
+        <div class="flex flex-col gap-4 md:order-2 order-1">
+          <h3 class="text-[28px] md:text-[36px] font-bold">Infos pratiques</h3>
+          <div class="h-[2px] w-full bg-green-800"></div>
+          <p class="text-[15px] md:text-[16px]"> Accédez facilement à tous les renseignements dont vous avez besoin. </p>
+          <a href="/infos" class="mt-2 inline-flex items-center gap-3 font-semibold text-[15px] md:text-[16px] hover:gap-4 transition-all duration-150" > En savoir plus
+            <img src="/arrow-right.svg" class="w-5 h-5" alt="Voir plus" /> </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PARTNERS CAROUSEL -->
+  <section class="py-20 bg-[#56A963] text-[#E1DED6]">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col items-center gap-10">
+      <h3 class="text-[28px] md:text-[36px] font-bold text-center"> Nos partenaires </h3>
+      <div class="flex items-center gap-6 md:gap-10">
+        <button type="button" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-[#E1DED6] hover:bg-[#E1DED6] hover:text-green-800 transition-colors" id="partners-prev">
+          <img src="/arrow-left.svg" alt="Précédent" class="w-5 h-5" /> </button>
+
+        <!-- Caroussel -->
+        <div class="relative w-[190px] h-[190px] flex items-center justify-center">
+          <div class="absolute inset-0 rounded-full bg-[#E1DED6] border-[13px] border-green-800"></div>
+
+          <!-- Partners -->
+          <a href="https://www.spotify.com" target="_blank" rel="noopener noreferrer" class="partner-slide relative z-10 block" data-partner="0" >
+            <img src="/images/spotifySVG.svg" alt="Spotify"class="w-[90px] h-[90px] object-contain mx-auto" /></a>
+          <a href="https://www.chamas-tacos.com" target="_blank" rel="noopener noreferrer" class="partner-slide relative z-10 hidden" data-partner="1">
+            <img src="/images/chamastacosSVG.svg" alt="Chamas Tacos" class="w-[90px] h-[90px] object-contain mx-auto"/> </a>
+          <a href="https://www.heineken.com" target="_blank" rel="noopener noreferrer" class="partner-slide relative z-10 hidden" data-partner="2" >
+            <img src="/images/heinekenSVG.svg"  alt="Heineken" class="w-[90px] h-[90px] object-contain mx-auto" /></a>
+          <a  href="https://www.starbucks.com" target="_blank" rel="noopener noreferrer" class="partner-slide relative z-10 hidden" data-partner="3">
+            <img src="/images/starbucksSVG.svg" alt="Starbucks" class="w-[90px] h-[90px] object-contain mx-auto" /> </a> </div>
+        <button type="button" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-[#E1DED6] hover:bg-[#E1DED6] hover:text-green-800 transition-colors" id="partners-next" >
+          <img src="/public/arrow-right.svg" alt="Suivant" class="w-5 h-5" /></button>
+      </div>
+
+      <p class="text-[13px] md:text-[14px] opacity-80 text-center"> Cliquez sur un logo pour visiter le site de notre partenaire. </p>
+    </div>
+
+    <script is:inline>
+      const slides = Array.from(document.querySelectorAll(".partner-slide"));
+      if (slides.length > 0) {
+        let current = 0;
+
+        const showSlide = (index) => {
+          slides.forEach((el, i) => {
+            if (i === index) {
+              el.classList.remove("hidden");
+              el.classList.add("opacity-100", "scale-100");
+            } else {
+              el.classList.add("hidden");
+              el.classList.remove("opacity-100", "scale-100");
+            }
+          });
+        };
+
+        const next = () => {
+          current = (current + 1) % slides.length;
+          showSlide(current);
+        };
+
+        const prev = () => {
+          current = (current - 1 + slides.length) % slides.length;
+          showSlide(current);
+        };
+
+        const btnNext = document.getElementById("partners-next");
+        const btnPrev = document.getElementById("partners-prev");
+
+        btnNext?.addEventListener("click", next);
+        btnPrev?.addEventListener("click", prev);
+
+        setInterval(next, 4000);
+
+        showSlide(current);
+      }
+    </script>
+  </section>
+
 </Layout>

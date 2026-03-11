@@ -1,0 +1,13 @@
+---
+const { recordImage, width = 400, height = 300 } = Astro.props;
+---
+
+{recordImage && 
+  <img
+    src={recordImage}
+    alt="Image artiste"
+    width={width}
+    height={height}
+    class="rounded-lg mb-4"
+  />
+}

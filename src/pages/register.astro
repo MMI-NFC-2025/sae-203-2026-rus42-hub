@@ -1,0 +1,36 @@
+<script type="module">
+import PocketBase from "pocketbase";
+const pb = new PocketBase("http://127.0.0.1:8090");
+
+const registerModal = document.getElementById("registerModal");
+const backToLogin = document.getElementById("backToLogin");
+const loginModal = document.getElementById("loginModal"); // если есть
+
+document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+  const password = document.getElementById("regPassword").value;
+
+  if (!name || !email || !password) {
+    alert("Veuillez remplir tous les champs !");
+    return;
+  }
+
+  try {
+    const newUser = await pb.collection("users").create({
+      name,
+      email,
+      username: email,
+      password,
+      passwordConfirm: password
+    });
+    alert("Compte créé avec succès !");
+    registerModal.classList.add("hidden");
+    loginModal?.classList.remove("hidden");
+  } catch (err) {
+    console.error(err);
+    alert("Erreur création compte : "     + (err.message || "Vérifiez vos informations"));
+  }
+});
+</script>

@@ -1,0 +1,29 @@
+---
+import Menu from "./Menu.astro";
+---
+
+<header class="h-[132px] flex items-center justify-center relative">
+  
+  <a href="/" class="text-[#E1DED6] text-2xl font-bold tracking-wide">
+    ECHO SONORE
+  </a>
+
+  <!-- burger -->
+  <button id="menuButton" class="absolute right-6 flex flex-col items-end gap-2">
+    <span class="block h-[2px] w-[30px] bg-[#E1DED6]"></span>
+    <span class="block h-[2px] w-[20px] bg-[#E1DED6]"></span>
+    <span class="block h-[2px] w-[30px] bg-[#E1DED6]"></span>
+  </button>
+
+</header>
+
+<Menu />
+
+<script>
+const btn = document.getElementById("menuButton");
+const menu = document.getElementById("menu");
+
+btn?.addEventListener("click", () => {
+  menu.classList.remove("translate-x-full");
+});
+</script>

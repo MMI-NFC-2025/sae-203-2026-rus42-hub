@@ -1,0 +1,60 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Programme">
+
+  <!-- HERO -->
+  <section class="bg-[#E1DED6] text-green-800 py-12 text-center w-screen relative left-1/2 -ml-[50vw] right-1/2 -mr-[50vw]">
+    <div class="max-w-md md:max-w-lg mx-auto px-6 flex flex-col gap-4">
+      <h1 class="font-[anton] text-4xl md:text-5xl tracking-wide">  PROGRAMME </h1>
+      <p class="text-sm md:text-base leading-relaxed"> Découvrez les activités qui vous seront proposées lors de notre événement ! </p>
+    </div>
+  </section>
+
+  <div class="w-screen h-3 bg-[#E1DED6] relative left-1/2 -ml-[50vw] right-1/2 -mr-[50vw] mb-12"></div>
+
+  <section class="bg-[#56A963] text-green-800 py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col gap-12 md:gap-16">
+
+      <!-- ATELIER MAQUILLAGE -->
+      <article class="flex flex-col gap-4">
+        <h2 class="font-[anton] text-2xl md:text-3xl text-center tracking-wide"> ATELIER MAQUILLAGE </h2>
+        <img src="/images/maquillageimg.avif" alt="Atelier maquillage" class="w-full rounded-2xl object-cover border-8 border-[#E1DED6]" />
+        <p class="text-sm md:text-base leading-relaxed text-center"> Venez vous faire maquiller et repartez prêts à briller au cœur du festival ! </p>
+      </article>
+
+      <!-- BUVETTE -->
+      <article class="flex flex-col gap-4">
+        <h2 class="font-[anton] text-2xl md:text-3xl text-center tracking-wide">  BUVETTE </h2>
+        <img src="/images/buvetteimg.avif"  alt="Buvette" class="w-full rounded-2xl object-cover border-8 border-[#E1DED6]" />
+        <p class="text-sm md:text-base leading-relaxed text-center"> Venez vous rafraîchir à la buvette : boissons fraîches, bonne ambiance et énergie pour continuer la fête ! </p>
+      </article>
+
+      <!-- STAND DE NOURRITURE -->
+      <article class="flex flex-col gap-4">
+        <h2 class="font-[anton] text-2xl md:text-3xl text-center tracking-wide">  STAND DE NOURRITURE </h2>
+        <img src="/images/nourritureimg.avif" alt="Stand de nourriture" class="w-full rounded-2xl object-cover border-8 border-[#E1DED6]" />
+        <p class="text-sm md:text-base leading-relaxed text-center">  Venez savourer une cuisine vegan maison, saine et colorée, idéale pour continuer la fête le ventre léger. </p>
+      </article>
+
+      <!-- STAND PHOTO -->
+      <article class="flex flex-col gap-4">
+        <h2 class="font-[anton] text-2xl md:text-3xl text-center tracking-wide">
+          STAND PHOTO
+        </h2>
+        <img src="/images/photoimg.avif" alt="Stand photo" class="w-full rounded-2xl object-cover border-8 border-[#E1DED6]" />
+        <p class="text-sm md:text-base leading-relaxed text-center">  Venez immortaliser votre passage au festival : posez au stand photo et repartez avec un souvenir unique ! </p>
+      </article>
+
+      <!-- BUTTON DOWNLOAD -->
+      <div class="flex justify-center pt-4">
+        <a href="#"  class="inline-flex items-center justify-center bg-[#E1DED6] text-green-800 font-bold px-10 py-3 rounded-full text-base md:text-lg shadow-md hover:shadow-xl hover:-translate-y-[2px] hover:scale-[1.03] transition-all duration-200" >
+          Télécharger le programme
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,124 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Infos pratiques">
+
+  <!-- HERO -->
+  <section class="bg-[#E1DED6] text-green-800 py-12 text-center w-screen relative left-1/2 -ml-[50vw] right-1/2 -mr-[50vw]">
+    <div class="max-w-md md:max-w-lg mx-auto px-6 flex flex-col gap-4">
+      <h1 class="font-[anton] text-4xl md:text-5xl tracking-wide"> INFOS PRATIQUES </h1>
+      <p class="text-sm md:text-base leading-relaxed"> Toutes les infos qu’il vous faut pour préparer votre visite se trouvent ici ! </p>
+    </div>
+  </section>
+
+  <section class="bg-[#56A963] text-green-800 py-16 md:py-20 w-screen relative left-1/2 -ml-[50vw] right-1/2 -mr-[50vw]">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col gap-16">
+
+      <!-- TARIFS -->
+      <div class="flex flex-col gap-4">
+        <h2 class="font-[anton] text-2xl md:text-3xl text-green-800 tracking-wide"> TARIFS </h2>
+
+        <div class="flex flex-col gap-2 mt-4">
+          <div class="bg-[#E1DED6] text-green-800 font-semibold rounded-[25px] px-4 py-2 flex justify-between"> <span>Pass 1 jour</span><span>28€</span> </div>
+          <div class="bg-[#E1DED6] text-green-800 font-semibold rounded-[25px] px-4 py-2 flex justify-between"> <span>Pass 2 jours</span><span>52€</span> </div>
+          <div class="bg-[#E1DED6] text-green-800 font-semibold rounded-[25px] px-4 py-2 flex justify-between"> <span>Pass 4 jours</span><span>98€</span> </div>
+        </div>
+      </div>
+
+      <!-- HÉBERGEMENT -->
+      <div class="flex flex-col gap-4">
+        <h2 class="font-[anton] text-2xl md:text-3xl text-green-800 tracking-wide"> HÉBERGEMENT </h2>
+
+        <div class="flex flex-col gap-2 mt-4">
+          <div class="bg-[#E1DED6] text-green-800 font-semibold rounded-[25px] px-4 py-2 flex justify-between">
+            <span>Pass camping</span>
+            <span>5€</span>
+          </div>
+          <div class="bg-[#E1DED6] text-green-800 font-semibold rounded-[25px] px-4 py-2"> Hôtels partenaires </div>
+        </div>
+      </div>
+
+      <!-- TRANSPORTS -->
+      <div class="flex flex-col gap-4">
+        <h2 class="font-[anton] text-2xl md:text-3xl text-green-800 tracking-wide">  TRANSPORTS </h2>
+
+        <div class="flex flex-col gap-2 mt-4">
+          <div class="bg-[#E1DED6] text-green-800 font-semibold rounded-[25px] px-4 py-2">Navettes</div>
+          <div class="bg-[#E1DED6] text-green-800 font-semibold rounded-[25px] px-4 py-2">Trains</div>
+          <div class="bg-[#E1DED6] text-green-800 font-semibold rounded-[25px] px-4 py-2">Vélos</div>
+          <div class="bg-[#E1DED6] text-green-800 font-semibold rounded-[25px] px-4 py-2">Voitures</div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="flex flex-col gap-4">
+        <h2 class="font-[anton] text-2xl md:text-3xl text-green-800 tracking-wide"> FAQ </h2>
+
+        <div class="flex flex-col gap-4 mt-4">
+
+          <!-- QUESTION 1 -->
+          <div class="bg-[#E1DED6] text-green-800 rounded-[25px] p-4 cursor-pointer faq-item">
+            <div class="flex justify-between items-center">
+              <p class="font-semibold text-base md:text-lg">Quels objets sont interdits ?</p>
+              <img src="/faq-x.svg" alt="x-plain" class="w-6 h-6 faq-arrow">
+            </div>
+            <div class="faq-content hidden mt-3 text-sm md:text-base leading-relaxed"> Les objets coupants, les bouteilles en verre, les armes, les drogues, et tout autre objet dangereux sont interdits.
+            </div>
+          </div>
+
+          <!-- QUESTION 2 -->
+          <div class="bg-[#E1DED6] text-green-800 rounded-[25px] p-4 cursor-pointer faq-item">
+            <div class="flex justify-between items-center">
+              <p class="font-semibold text-base md:text-lg">Disposez-vous d’un vestiaire ?</p>
+              <img src="/faq-x.svg" alt="x-plain" class="w-6 h-6 faq-arrow">
+            </div>
+            <div class="faq-content hidden mt-3 text-sm md:text-base leading-relaxed"> Bien sûr ! Celui-ci est situé à l'entrée du festival.
+            </div>
+          </div>
+
+          <!-- QUESTION 3 -->
+          <div class="bg-[#E1DED6] text-green-800 rounded-[25px] p-4 cursor-pointer faq-item">
+            <div class="flex justify-between items-center">
+              <p class="font-semibold text-base md:text-lg">Les enfants sont-ils acceptés ?</p>
+              <img src="/faq-x.svg" alt="x-plain" class="w-6 h-6 faq-arrow">
+            </div>
+            <div class="faq-content hidden mt-3 text-sm md:text-base leading-relaxed"> Évidemment ! Les enfants sont les bienvenus au festival.
+            </div>
+          </div>
+
+          <!-- QUESTION 4 -->
+          <div class="bg-[#E1DED6] text-green-800 rounded-[25px] p-4 cursor-pointer faq-item">
+            <div class="flex justify-between items-center">
+              <p class="font-semibold text-base md:text-lg">Les animaux sont-ils acceptés ?</p>
+              <img src="/faq-x.svg" alt="x-plain" class="w-6 h-6 faq-arrow">
+            </div>
+            <div class="faq-content hidden mt-3 text-sm md:text-base leading-relaxed"> Malheureusement, les animaux ne sont pas acceptés pour des raisons de sécurité et de confort pour tous les participants.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ SCRIPT -->
+  <script is:inline>
+    document.querySelectorAll(".faq-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        const content = item.querySelector(".faq-content");
+        const arrow = item.querySelector(".faq-arrow");
+
+        const isOpen = !content.classList.contains("hidden");
+
+        document.querySelectorAll(".faq-content").forEach((c) => c.classList.add("hidden"));
+
+        if (!isOpen) {
+          content.classList.remove("hidden");
+        }
+      });
+    });
+  </script>
+
+</Layout>

@@ -1,0 +1,118 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PocketBase from "pocketbase";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
+
+const { id } = Astro.params;
+
+const artist = await pb.collection("artists").getOne(id);
+
+const img = `http://127.0.0.1:8090/api/files/artists/${artist.id}/${artist.image}`;
+
+const date = artist.date
+  ? new Date(artist.date).toLocaleDateString("fr-FR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    })
+  : "";
+
+function youtubeEmbed(url){
+  if(!url) return null;
+  const id = url.split("v=")[1]?.split("&")[0];
+  if(!id) return null;
+  return `https://www.youtube.com/embed/${id}`;
+}
+
+const video = youtubeEmbed(artist.video_url);
+
+let autresArtistes = await pb.collection("artists").getFullList({ sort: "-created", filter: `id != "${id}"` });
+autresArtistes = autresArtistes.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+function decodeHtmlEntities(text) {
+  if (!text) return "";
+  return text
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&rsquo;/g, "’")
+    .replace(/&eacute;/g, "é")
+    .replace(/&egrave;/g, "è")
+    .replace(/&ecirc;/g, "ê")
+    .replace(/&iuml;/g, "ï")
+    .replace(/&agrave;/g, "à")
+    .replace(/&ecirc;/g, "ê")
+    .replace(/&euml;/g, "ë");
+}
+---
+
+<Layout>
+
+<!-- HEADER -->
+<section class="text-center mt-12">
+  <h1 class="font-[Anton] text-[56px] mb-2">{artist.name}</h1>
+  <p class="font-[Anton] text-[32px] mb-10">{date}</p>
+</section>
+
+<!-- IMAGE + LEGEND -->
+<section class="max-w-3xl mx-auto mb-10">
+  <div class="bg-[#E1DED6] text-green-800 rounded-[25px] overflow-hidden">
+    <img src={img} class="w-full object-cover"/>
+    <div class="p-4 text-sm">{artist.legend}</div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section class="max-w-3xl mx-auto mb-10 text-center">
+  <p class="text-lg font-semibold">{decodeHtmlEntities(artist.resume)}</p>
+</section>
+
+<!-- DESCRIPTION -->
+<section class="max-w-3xl mx-auto mb-16 text-center">
+  <p class="text-sm font-semibold leading-relaxed">{decodeHtmlEntities(artist.summary)}</p>
+</section>
+
+<!-- VIDEO -->
+{video && (
+  <section class="max-w-4xl mx-auto mb-16">
+    <h2 class="font-[Anton] text-[32px] text-center mb-6">LIVE</h2>
+    <div class="aspect-video rounded-[25px] overflow-hidden">
+      <iframe
+        src={video}
+        class="w-full h-full"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </section>
+)}
+
+<!-- AUTRES ARTISTES -->
+{autresArtistes.length > 0 && (
+  <section class="max-w-6xl mx-auto mb-16">
+    <h2 class="font-[Anton] text-[32px] text-center mb-6">Autres artistes</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {autresArtistes.map(a => (
+        <a href={`/artists/${a.id}`} class="block bg-[#E1DED6] text-green-800 rounded-[25px] overflow-hidden hover:scale-105 transition">
+          <img src={`http://127.0.0.1:8090/api/files/artists/${a.id}/${a.image}`} class="w-full object-cover"/>
+          <div class="p-4 text-center font-semibold">{a.name}</div>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
+<!-- BACK BUTTON -->
+<div class="text-center mb-20">
+  <a
+    href="/artists"
+    class="bg-[#E1DED6] text-green-800 px-8 py-4 rounded-[25px] font-bold hover:scale-110 transition inline-block"
+  >
+    RETOUR AUX ARTISTES
+  </a>
+</div>
+
+</Layout>

@@ -1,0 +1,119 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ArtistCard from "../components/ArtistCard.astro";
+import PocketBase from "pocketbase";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
+
+const artists = await pb.collection("artists").getFullList();
+
+const representations = await pb.collection("representations").getFullList();
+
+const artistDatesMap = {};
+representations.forEach(rep => {
+  if (!artistDatesMap[rep.artist]) artistDatesMap[rep.artist] = [];
+  if (rep.date) artistDatesMap[rep.artist].push(rep.date);
+});
+
+const dates = [...new Set(
+  representations
+    .map(r => r.date)
+    .filter(d => !!d)
+    .map(d => new Date(d).toISOString().split("T")[0])
+)].sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+---
+
+<Layout>
+
+<section class="bg-[#E1DED6] text-green-800 py-12 mb-12 text-center w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+  <h1 class="font-[Anton] text-[36px]">ARTISTES</h1>
+  <p class="text-sm font-semibold mt-2">Découvrez les artistes présents à notre événement !</p>
+</section>
+
+<h2 class="font-[Anton] text-[36px] text-center mb-8">DATE</h2>
+
+<!-- DATE FILTERS -->
+<div id="dateFilters" class="flex justify-center gap-4 mb-10 flex-wrap">
+  {dates.map(date => (
+    <button
+      class="dateBtn px-5 py-2 rounded-[25px] bg-[#E1DED6] text-green-800"
+      data-date={date}
+    >
+      {new Date(date).toLocaleDateString("fr-FR", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      })}
+    </button>
+  ))}
+</div>
+
+<!-- SEARCH -->
+<div class="text-center mb-10">
+  <p class="font-semibold mb-2">Trouver un artiste</p>
+  <input id="searchInput" type="text" placeholder="Nom ou style" class="rounded-[25px] px-4 py-2 text-green-800" />
+</div>
+
+<!-- GRID -->
+<div id="artistsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {artists.map(artist => {
+    const artistDates = artistDatesMap[artist.id] || [];
+    const firstDate = artistDates.length ? new Date(artistDates[0]).toISOString().split("T")[0] : '';
+    return (
+      <div
+        class="artistCard"
+        data-date={firstDate}
+        data-name={artist.name.toLowerCase()}
+      >
+        <ArtistCard artist={artist} />
+      </div>
+    );
+  })}
+</div>
+
+<div class="text-center mt-12">
+  <a href="/billets" class="bg-[#E1DED6] text-green-800 px-8 py-4 rounded-[25px] font-bold hover:scale-110 transition inline-block"
+  > JE PRENDS MES BILLETS !</a>
+</div>
+
+</Layout>
+
+<script type="module">
+const buttons = document.querySelectorAll(".dateBtn");
+const cards = document.querySelectorAll(".artistCard");
+const search = document.getElementById("searchInput");
+
+let selectedDate = null;
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    selectedDate = btn.dataset.date || null;
+
+    buttons.forEach(b=>{
+      b.classList.remove("border","border-[#E1DED6]","text-[#E1DED6]","bg-transparent");
+      b.classList.add("bg-[#E1DED6]","text-[#195E24]");
+    });
+
+    btn.classList.remove("bg-[#E1DED6]","text-[#195E24]");
+    btn.classList.add("border","border-[#E1DED6]","text-[#E1DED6]","bg-transparent");
+
+    filterArtists();
+  });
+});
+
+search.addEventListener("input", filterArtists);
+
+function filterArtists(){
+  const text = search.value.toLowerCase();
+
+  cards.forEach(card => {
+    const name = card.dataset.name || "";
+    const date = card.dataset.date || "";
+
+    const matchName = name.includes(text);
+    const matchDate = !selectedDate || selectedDate === date;
+
+    card.style.display = (matchName && matchDate) ? "block" : "none";
+  });
+}
+</script>

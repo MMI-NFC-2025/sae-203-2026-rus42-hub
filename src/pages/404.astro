@@ -1,0 +1,133 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Erreur 404">
+
+<section class="errorPage">
+
+<div class="content">
+
+<div class="text">
+
+<p class="small">Erreur 404</p>
+
+<h1>Page introuvable</h1>
+
+<p class="description">
+La page que vous cherchez n’existe pas ou plus.
+Retournez à l’accueil ou contactez-nous pour trouver
+votre chemin dans le festival.
+</p>
+
+<div class="buttons">
+
+<a href="/" class="btnPrimary">
+Retour à l’accueil
+</a>
+
+<a href="/contact" class="btnSecondary">
+Contact
+</a>
+
+</div>
+
+</div>
+
+<div class="image">
+
+<img src="/images/festivalaccueil2img.avif" alt="Festival image">
+
+</div>
+
+</div>
+
+</section>
+
+<style>
+
+.errorPage{
+background:#f3f6f1;
+padding:70px 0;
+}
+
+.content{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+align-items:center;
+padding:0 50px;
+}
+
+.text{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.small{
+font-size:23px;
+font-weight:600;
+color:#14532d;
+}
+
+h1{
+font-size:62px;
+font-weight:800;
+color:#14532d;
+}
+
+.description{
+font-size:23px;
+line-height:1.6;
+color:#14532d;
+max-width:500px;
+}
+
+.buttons{
+display:flex;
+gap:16px;
+margin-top:10px;
+}
+
+.btnPrimary{
+background:#14532d;
+color:#f3f6f1;
+padding:12px 22px;
+border-radius:999px;
+font-weight:600;
+text-decoration:none;
+}
+
+.btnSecondary{
+border:2px solid #14532d;
+color:#14532d;
+padding:12px 22px;
+border-radius:999px;
+font-weight:600;
+text-decoration:none;
+}
+
+.image img{
+width:100%;
+border-radius:25px;
+border:13px solid #14532d;
+}
+
+@media (max-width:900px){
+
+.content{
+grid-template-columns:1fr;
+}
+
+.image{
+order:-1;
+}
+
+}
+
+</style>
+
+</Layout>

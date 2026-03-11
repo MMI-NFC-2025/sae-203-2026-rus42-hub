@@ -1,0 +1,27 @@
+---
+const { artist } = Astro.props;
+
+const img = `http://127.0.0.1:8090/api/files/artists/${artist.id}/${artist.image}`;
+---
+
+<a href={`/artists/${artist.id}`} class="block">
+
+<div class="bg-[#E1DED6] text-[#195E24] rounded-[25px] overflow-hidden hover:scale-105 transition">
+
+<img src={img} class="w-full h-56 object-cover" />
+
+<div class="p-4">
+
+<h3 class="font-bold text-lg">
+{artist.name}
+</h3>
+
+<p class="text-sm">
+{artist.legend}
+</p>
+
+</div>
+
+</div>
+
+</a>
