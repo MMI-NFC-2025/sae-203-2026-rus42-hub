@@ -10,31 +10,29 @@ import {
 } from './backend.mjs';
 
 async function test() {
+    const artistsByDate = await getArtistsByDate();
+    console.log(artistsByDate);
 
-    console.log('Tous les artistes triés par date :');
-    console.log(await getArtistsByDate());
+    const artistsAlphabetical = await getArtistsAlphabetical();
+    console.log(artistsAlphabetical);
 
-    console.log('Tous les artistes par ordre alphabétique :');
-    console.log(await getArtistsAlphabetical());
+    const scenes = await getScenes();
+    console.log(scenes);
 
-    console.log('Toutes les scènes :');
-    console.log(await getScenes());
-
-    console.log("Artiste par ID (exemple) :");
     const sampleArtistId = 'kgq9h32ditpx6xz';
-    console.log(await getArtistById(sampleArtistId));
+    const artistById = await getArtistById(sampleArtistId);
+    console.log(artistById);
 
-    console.log("Scène par ID (exemple) :");
     const sampleSceneId = 'SCENE_ID_EXEMPLE';
-    console.log(await getSceneById(sampleSceneId));
+    const sceneById = await getSceneById(sampleSceneId);
+    console.log(sceneById);
 
-    console.log("Artistes d'une scène par ID (exemple) :");
-    console.log(await getArtistsBySceneId(sampleSceneId));
+    const artistsBySceneId = await getArtistsBySceneId(sampleSceneId);
+    console.log(artistsBySceneId);
 
-    console.log("Artistes d'une scène par nom (exemple) :");
     const sampleSceneName = 'Nom de la scène';
-    console.log(await getArtistsBySceneName(sampleSceneName));
-
+    const artistsBySceneName = await getArtistsBySceneName(sampleSceneName);
+    console.log(artistsBySceneName);
 }
 
 test();
