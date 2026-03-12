@@ -40,7 +40,8 @@ import Layout from "../layouts/Layout.astro";
 // @ts-nocheck
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("http://127.0.0.1:8090");
+
+const pb = new PocketBase(import.meta.env.PUBLIC_PB_URL || "https://echosonore.ruslanabudniak.fr");
 
 const loginModal = document.getElementById("loginModal");
 const registerModal = document.getElementById("registerModal");

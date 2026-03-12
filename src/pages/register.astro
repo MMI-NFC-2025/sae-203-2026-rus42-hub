@@ -1,10 +1,11 @@
 <script type="module">
 import PocketBase from "pocketbase";
-const pb = new PocketBase("http://127.0.0.1:8090");
+
+const pb = new PocketBase(import.meta.env.PUBLIC_PB_URL || "https://echosonore.ruslanabudniak.fr");
 
 const registerModal = document.getElementById("registerModal");
 const backToLogin = document.getElementById("backToLogin");
-const loginModal = document.getElementById("loginModal"); // если есть
+const loginModal = document.getElementById("loginModal");
 
 document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();

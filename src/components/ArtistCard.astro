@@ -1,7 +1,7 @@
 ---
 const { artist } = Astro.props;
 
-const img = `http://127.0.0.1:8090/api/files/artists/${artist.id}/${artist.image}`;
+const img = `https://echosonore.ruslanabudniak.fr/api/files/artists/${artist.id}/${artist.image}`;
 ---
 
 <a href={`/artists/${artist.id}`} class="block">

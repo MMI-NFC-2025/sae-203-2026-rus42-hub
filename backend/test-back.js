@@ -1,4 +1,3 @@
-// test-back.js
 import {
     getArtistsByDate,
     getArtistsAlphabetical,

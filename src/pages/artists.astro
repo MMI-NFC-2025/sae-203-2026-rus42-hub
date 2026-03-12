@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import ArtistCard from "../components/ArtistCard.astro";
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("http://127.0.0.1:8090");
+const pb = new PocketBase(import.meta.env.PUBLIC_PB_URL || "https://echosonore.ruslanabudniak.fr");
 
 const artists = await pb.collection("artists").getFullList();
 
@@ -90,12 +90,12 @@ buttons.forEach(btn => {
     selectedDate = btn.dataset.date || null;
 
     buttons.forEach(b=>{
-      b.classList.remove("border","border-[#E1DED6]","text-[#E1DED6]","bg-transparent");
-      b.classList.add("bg-[#E1DED6]","text-[#195E24]");
+      b.classList.remove("border","border-green-800","bg-green-800","text-white");
+      b.classList.add("bg-[#E1DED6]","text-green-800");
     });
 
-    btn.classList.remove("bg-[#E1DED6]","text-[#195E24]");
-    btn.classList.add("border","border-[#E1DED6]","text-[#E1DED6]","bg-transparent");
+    btn.classList.remove("bg-[#E1DED6]","text-green-800");
+    btn.classList.add("border","border-green-800","bg-green-800","text-white");
 
     filterArtists();
   });

@@ -2,65 +2,66 @@
 import Layout from "../layouts/Layout.astro";
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("http://127.0.0.1:8090");
-const scenes = await pb.collection("scenes").getFullList();
+const pb = new PocketBase("https://echosonore.ruslanabudniak.fr");
+
+let scenes = [];
+try {
+  scenes = await pb.collection("scenes").getFullList({});
+} catch (error) {
+  console.error("Ошибка PocketBase:", error.message);
+}
 ---
 
 <Layout title="Scènes">
 
-<!-- HEADER -->
-<section class="bg-[#E1DED6] py-20">
-  <div class="max-w-6xl mx-auto px-[30px]">
+  <!-- HEADER -->
+  <section class="bg-[#E1DED6] py-20">
+    <div class="max-w-6xl mx-auto px-[30px]">
+      <h1 class="text-green-800 text-[36px] font-bold mb-6">SCÈNES</h1>
+      <p class="text-green-800 max-w-[170px]">
+        Pour sa première édition, le festival ECHO SONORE dispose de deux scènes. Venez les découvrir avec nous !
+      </p>
+    </div>
+  </section>
 
-    <h1 class="text-green-800 text-[36px] font-bold mb-6"> SCÈNES </h1>
+  <!-- SCENES -->
+  <section class="py-24">
+    <div class="max-w-4xl mx-auto flex flex-col items-center gap-28">
 
-    <p class="text-green-800 max-w-[170px]"> Pour sa première édition, le festival ECHO SONORE dispose de deux scènes. Venez les découvrir avec nous ! </p>
+      {scenes.length > 0 ? (
+        scenes.map(scene => {
+                     const imageUrl = scene.image
+  ? `https://echosonore.ruslanabudniak.fr/api/files/${scene.collectionId}/${scene.id}/${scene.image}`
+  : "/placeholder.jpg";
 
-  </div>
-</section>
+          return (
+            <div class="text-center">
+              <img
+                src={imageUrl}
+                alt={scene.name}
+                class="mx-auto w-[420px] rounded-[25px] border-[13px] border-[#E1DED6]"
+              />
+              <h2 class="text-[#E1DED6] text-[36px] font-bold mt-8">{scene.name}</h2>
+              <a
+                href={`/scenes/${scene.id}`}
+                class="inline-block mt-6 px-8 py-3 bg-[#EDEFE6] text-green-800 font-semibold rounded-full hover:scale-105 hover:bg-[#E1DED6] transition"
+              >
+                → Voir la scène
+              </a>
+            </div>
+          );
+        })
+      ) : (
+        <p class="text-green-800">Aucune scène disponible pour le moment.</p>
+      )}
 
+    </div>
 
-<!-- SCENES -->
-<section class="py-24">
+    <!-- BOTTOM LINE -->
+    <div class="max-w-6xl mx-auto mt-28 px-[30px]">
+      <div class="w-full h-[13px] bg-[#E1DED6]"></div>
+    </div>
 
-  <div class="max-w-4xl mx-auto flex flex-col items-center gap-28">
-
-    {scenes.map(scene => {
-
-      const imageUrl = `http://127.0.0.1:8090/api/files/${scene.collectionId}/${scene.id}/${scene.image}`;
-
-      return (
-
-      <div class="text-center">
-
-        <!-- IMAGE -->
-        <img
-          src={imageUrl}
-          alt={scene.name}
-          class="mx-auto w-[420px] rounded-[25px] border-[13px] border-[#E1DED6]"
-        />
-
-        <!-- NAME -->
-        <h2 class="text-[#E1DED6] text-[36px] font-bold mt-8"> {scene.name} </h2>
-
-        <!-- BUTTON -->
-        <a href={`/scenes/${scene.id}`} class="inline-block mt-6 px-8 py-3 bg-[#EDEFE6] text-green-800 font-semibold rounded-full hover:scale-105 hover:bg-[#E1DED6] transition" >
-          → Voir la scène </a>
-
-      </div>
-
-      );
-
-    })}
-
-  </div>
-
-
-  <!-- BOTTOM LINE -->
-  <div class="max-w-6xl mx-auto mt-28 px-[30px]">
-    <div class="w-full h-[13px] bg-[#E1DED6]"></div>
-  </div>
-
-</section>
+  </section>
 
 </Layout>

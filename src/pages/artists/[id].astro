@@ -2,13 +2,15 @@
 import Layout from "../../layouts/Layout.astro";
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("http://127.0.0.1:8090");
+const pb = new PocketBase(import.meta.env.PUBLIC_PB_URL || "https://echosonore.ruslanabudniak.fr");
 
 const { id } = Astro.params;
-
 const artist = await pb.collection("artists").getOne(id);
 
-const img = `http://127.0.0.1:8090/api/files/artists/${artist.id}/${artist.image}`;
+
+const baseUrl = import.meta.env.PUBLIC_PB_URL || "https://echosonore.ruslanabudniak.fr";
+const img = `${baseUrl}/api/files/artists/${artist.id}/${artist.image}`;
+
 
 const date = artist.date
   ? new Date(artist.date).toLocaleDateString("fr-FR", {
@@ -97,8 +99,8 @@ function decodeHtmlEntities(text) {
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {autresArtistes.map(a => (
         <a href={`/artists/${a.id}`} class="block bg-[#E1DED6] text-green-800 rounded-[25px] overflow-hidden hover:scale-105 transition">
-          <img src={`http://127.0.0.1:8090/api/files/artists/${a.id}/${a.image}`} class="w-full object-cover"/>
-          <div class="p-4 text-center font-semibold">{a.name}</div>
+        <img src={`${baseUrl}/api/files/artists/${a.id}/${a.image}`} class="w-full object-cover"/>
+        <div class="p-4 text-center font-semibold">{a.name}</div>
         </a>
       ))}
     </div>

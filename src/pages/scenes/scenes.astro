@@ -2,7 +2,9 @@
 import Layout from "../../layouts/Layout.astro";
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("http://127.0.0.1:8090");
+const pbUrl = import.meta.env.PUBLIC_PB_URL || "https://echosonore.ruslanabudniak.fr";
+const pb = new PocketBase(pbUrl);
+
 const scenes = await pb.collection("scenes").getFullList();
 ---
 
@@ -22,18 +24,14 @@ const scenes = await pb.collection("scenes").getFullList();
   </div>
 </section>
 
-
 <!-- SCENES -->
 <section class="py-24">
-
   <div class="max-w-4xl mx-auto flex flex-col items-center gap-28">
 
     {scenes.map(scene => {
-
-      const imageUrl = `http://127.0.0.1:8090/api/files/${scene.collectionId}/${scene.id}/${scene.image}`;
+      const imageUrl = `${pbUrl}/api/files/${scene.collectionId}/${scene.id}/${scene.image}`;
 
       return (
-
       <div class="text-center">
 
         <!-- IMAGE -->

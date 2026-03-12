@@ -2,66 +2,54 @@
 import Layout from "../../layouts/Layout.astro";
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("http://127.0.0.1:8090");
-
+const pb = new PocketBase(import.meta.env.PUBLIC_PB_URL || "https://echosonore.ruslanabudniak.fr");
 const { id } = Astro.params;
 
-
 // SCENE
-
 let scene = null;
-
-try{
-scene = await pb.collection("scenes").getOne(id);
-}catch(e){
-console.error(e);
+try {
+  scene = await pb.collection("scenes").getOne(id);
+} catch(e) {
+  console.error(e);
 }
-
 
 // REPRESENTATIONS (artist + date + scene)
-
 let representations = [];
-
-try{
-representations = await pb.collection("representations").getFullList({
-expand: "artist,scene",
-filter: `scene="${id}"`,
-sort: "date"
-});
-}catch(e){
-console.error(e);
+try {
+  representations = await pb.collection("representations").getFullList({
+    expand: "artist,scene",
+    filter: `scene="${id}"`,
+    sort: "date"
+  });
+} catch(e) {
+  console.error(e);
 }
 
-
 // DATES
-
 const dates = [...new Set(
-
-representations
-.map(r => r.date)
-.filter(Boolean)
-.map(d => new Date(d).toISOString().split("T")[0])
-
+  representations
+    .map(r => r.date)
+    .filter(Boolean)
+    .map(d => new Date(d).toISOString().split("T")[0])
 )].sort((a,b)=> new Date(a)-new Date(b));
-
 ---
 
 <Layout>
 
 {scene && (
+  <section class="">
+    <div class="max-w-5xl mx-auto flex flex-col items-center gap-12">
 
-<section class="">
+      {scene.image && (
+        <img
+          src={`${import.meta.env.PUBLIC_PB_URL || "https://echosonore.ruslanabudniak.fr"}/api/files/${scene.collectionId}/${scene.id}/${scene.image}`}
+          alt={scene.name}
+          class="w-[420px] rounded-[25px] border-[13px] border-[#E1DED6]"
+        />
+      )}
 
-<div class="max-w-5xl mx-auto flex flex-col items-center gap-12">
-
-{scene.image && (
-
-<img
-src={`http://127.0.0.1:8090/api/files/${scene.collectionId}/${scene.id}/${scene.image}`}
-alt={scene.name}
-class="w-[420px] rounded-[25px] border-[13px] border-[#E1DED6]"
-/>
-
+    </div>
+  </section>
 )}
 
 <h1 class="text-[#E1DED6] text-5xl font-bold text-center">
